@@ -13,8 +13,7 @@ public class WallDetector : MonoBehaviour
     [Range(0, 2f)] public float cubeCastWidth = 0.2f, cubeCastHeight = 1f;
     public Color gizmoColor = Color.blue;
 
-    private Vector2 castDirection = Vector2.right; // mặc định cast phải
-
+    private Vector2 castDirection = Vector2.right;
     private void Awake()
     {
         if (actorCollider == null)

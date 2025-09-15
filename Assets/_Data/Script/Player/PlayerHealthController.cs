@@ -29,7 +29,6 @@ public class PlayerHealthController : MonoBehaviour
 
     private void Update()
     {
-        // Nhấp nháy khi còn invincibility
         if (invicCounter > 0 && !IsDead)
         {
             invicCounter -= Time.deltaTime;
@@ -95,14 +94,10 @@ public class PlayerHealthController : MonoBehaviour
 
     private IEnumerator DeathRoutine()
     {
-        // Chờ animation chết
         yield return new WaitForSeconds(1f);
 
-        // Thông báo game over
         if (PlatformGameManager.HasInstance)
             PlatformGameManager.Instance.LooseGame();
-
-        // Ngăn tiếp tục flash
         invicCounter = 0;
         foreach (var sprite in playerSprites)
             sprite.enabled = true;
@@ -110,13 +105,11 @@ public class PlayerHealthController : MonoBehaviour
 
     public void ResetHealth()
     {
-        StopAllCoroutines(); // dừng DeathRoutine / flash
+        StopAllCoroutines();
 
         currentHealth = maxHealth;
         invicCounter = 0;
         flashCounter = 0;
-
-        // Reset sprite hiển thị
         foreach (var sprite in playerSprites)
         {
             sprite.enabled = true;
@@ -125,7 +118,6 @@ public class PlayerHealthController : MonoBehaviour
             sprite.color = color;
         }
 
-        // Reset animator
         if (bodyAnim != null)
         {
             bodyAnim.Rebind();
@@ -133,7 +125,7 @@ public class PlayerHealthController : MonoBehaviour
 
         if (UIManager.HasInstance)
         {
-            // ✅ đặt maxHealth trước khi update
+
             UIManager.Instance.GamePanel.SetMaxHealth(maxHealth);
             UIManager.Instance.GamePanel.UpdateHealth(currentHealth);
         }
