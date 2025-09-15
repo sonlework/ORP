@@ -59,10 +59,13 @@ public class RespawnManager : BaseManager<RespawnManager>
 
     private IEnumerator RespawnCo(Action onComplete = null)
     {
-        if (playerTf == null) yield break;
+
+        if (playerTf == null || playerTf.gameObject == null)
+            yield break;
 
         var healthCtrl = playerTf.GetComponent<PlayerHealthController>();
         var playerCtrl = playerTf.GetComponent<PlayerController>();
+
         playerTf.gameObject.SetActive(false);
 
         if (healthCtrl != null)
@@ -70,16 +73,19 @@ public class RespawnManager : BaseManager<RespawnManager>
 
         yield return new WaitForSeconds(respawnTime);
 
-        playerTf.position = respawnPoint.position;
+        if (playerTf == null || playerTf.gameObject == null)
+            yield break;
+
+        if (respawnPoint != null)
+            playerTf.position = respawnPoint.position;
+
         healthCtrl?.ResetHealth();
         playerCtrl?.ResetDashes();
 
         playerTf.gameObject.SetActive(true);
 
-
         if (vcamPlayer != null)
             vcamPlayer.Follow = playerTf;
-
 
         if (UIManager.HasInstance)
         {

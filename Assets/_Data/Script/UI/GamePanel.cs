@@ -9,6 +9,7 @@ public class GamePanel : MonoBehaviour
     [SerializeField] private Slider bossHealthSlider;
     [SerializeField] private Color playerHealthDefautColor;
     [SerializeField] private GameObject bossHealthGo;
+
     private Color currentColor;
     private int playerMaxHealth;
 
@@ -20,16 +21,18 @@ public class GamePanel : MonoBehaviour
 
     public void UpdateHealth(int currentHealthValue)
     {
+        if (playerMaxHealth <= 0) return; // tránh chia 0
+
         playerHealthSlider.value = currentHealthValue;
         float healthPercent = (float)currentHealthValue / playerMaxHealth;
 
-        if (healthPercent <= 0.7f)
-        {
-            currentColor = Color.yellow;
-        }
-        else if (healthPercent <= 0.3f)
+        if (healthPercent <= 0.3f)
         {
             currentColor = Color.red;
+        }
+        else if (healthPercent <= 0.7f)
+        {
+            currentColor = Color.yellow;
         }
         else
         {
@@ -46,7 +49,6 @@ public class GamePanel : MonoBehaviour
 
     public void UpdateWeaponIcon(WeaponType newWeapon)
     {
-
         if (newWeapon == WeaponType.Buster)
         {
             busterIcon.SetActive(true);
@@ -58,10 +60,12 @@ public class GamePanel : MonoBehaviour
             saberIcon.SetActive(true);
         }
     }
+
     public void ActiveBossHealth(bool status)
     {
         bossHealthGo.SetActive(status);
     }
+
     public void SetBossMaxHealth(int maxHealthValue)
     {
         bossHealthSlider.maxValue = maxHealthValue;

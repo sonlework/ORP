@@ -132,6 +132,10 @@ public class PlayerHealthController : MonoBehaviour
         }
 
         if (UIManager.HasInstance)
+        {
+            // ✅ đặt maxHealth trước khi update
+            UIManager.Instance.GamePanel.SetMaxHealth(maxHealth);
             UIManager.Instance.GamePanel.UpdateHealth(currentHealth);
+        }
     }
 }
