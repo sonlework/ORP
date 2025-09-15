@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2f190f9635d98c54c946e3fe1ce656e4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273723
+  packageName: 2D Action Platformer Kit
+  packageVersion: 3.0
+  assetPath: Assets/2D Action Platformer Kit/Shaders/URP Lights_Renderer.asset
+  uploadId: 727036

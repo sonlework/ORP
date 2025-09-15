@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3e687905810331d45aa5737b5e48f0bf
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4890085278179872738
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273723
+  packageName: 2D Action Platformer Kit
+  packageVersion: 3.0
+  assetPath: Assets/2D Action Platformer Kit/Shaders/New Lighting Settings.lighting
+  uploadId: 727036
