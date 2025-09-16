@@ -1,28 +1,37 @@
 ﻿using UnityEngine;
 using Unity.Cinemachine;
+using UnityEngine.Events;
 
 public class TriggerZone : MonoBehaviour
 {
-    [SerializeField] private BossController boss;
 
 
-    private bool hasTriggered = false;
+    public bool oneShot = false;
+    private bool alreadyTriggered = false;
+    private bool alreadyExited = false;
+    public string collisionTag = "Player"; 
+    public UnityEvent onTriggerEnter;
+    public UnityEvent onTriggerExit;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player")) return;
+        if (alreadyTriggered) return;
 
-        if (!hasTriggered)
-        {
-            hasTriggered = true;
-            boss.gameObject.SetActive(true);
-            boss.StartBossSequence();
-            BossHealthController health = boss.GetComponent<BossHealthController>();
-            if (health != null) health.Init(health.GetMaxHealth());
-            if (AudioManager.HasInstance) AudioManager.Instance.PlayBGM("Boss Theme");
-        }
-        if (UIManager.HasInstance)
-            UIManager.Instance.GamePanel.ActiveBossHealth(true);
+        if(!string.IsNullOrEmpty(collisionTag) && !collision.CompareTag(collisionTag)) return;
+
+
+        onTriggerEnter?.Invoke();
+        if (oneShot) alreadyTriggered = true;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (alreadyExited) return;
+
+        if (!string.IsNullOrEmpty(collisionTag) && !collision.CompareTag(collisionTag)) return;
+
+        onTriggerExit?.Invoke();
+
+        if (oneShot) alreadyExited = true;
     }
 }
 

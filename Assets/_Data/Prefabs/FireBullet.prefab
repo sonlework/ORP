@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   dmgAmount: 2
-  gravityScale: 1
+  gravityScale: 0.8
   lifeTime: 5
   firePuddlePrefab: {fileID: 2648124080222627136, guid: df9b3c4130daca84fbacc0d581369d26, type: 3}
   explosionEffect: {fileID: 4748400313633341812, guid: 4d3b87d90dee36e428883d38585eba34, type: 3}

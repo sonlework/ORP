@@ -10,10 +10,8 @@ public class RespawnManager : BaseManager<RespawnManager>
     [SerializeField] private Transform playerTf;
     [SerializeField] private Transform respawnPoint;
     [SerializeField] private Transform defaultPos;
-
-    [Header("Cameras")]
     [SerializeField] private CinemachineCamera vcamPlayer;
-    [SerializeField] private CinemachineCamera vcamBossRoom;
+
 
     protected override void Awake()
     {
@@ -87,14 +85,11 @@ public class RespawnManager : BaseManager<RespawnManager>
         if (vcamPlayer != null)
             vcamPlayer.Follow = playerTf;
 
-        if (UIManager.HasInstance)
+        EnemyHealthController[] enemies = FindObjectsByType<EnemyHealthController>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (var enemy in enemies)
         {
-            UIManager.Instance.GamePanel.ResetHealth();
-            if (vcamPlayer != null) vcamPlayer.gameObject.SetActive(true);
-            if (vcamBossRoom != null) vcamBossRoom.gameObject.SetActive(false);
+            enemy.Respawn();
         }
-
-        onComplete?.Invoke();
     }
 
     public void SetRespawnPoint(Transform newRespawnPosition)

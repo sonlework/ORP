@@ -7,7 +7,7 @@ public class EnemyBullet : MonoBehaviour
     [SerializeField] private float lifeTime;
     [SerializeField] private int damageAmount;
     [SerializeField] private GameObject impactEffect;
-    [SerializeField] private float effectTime = 0.2f;
+    [SerializeField] private float effectTime = 3f;
     private Vector3 direction;
 
     public void SetDirection(Vector3 dir)

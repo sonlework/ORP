@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyHealthController : MonoBehaviour
 {
-    [SerializeField] protected int totalHealth = 3;   // Máu tối đa
+    [SerializeField] protected int totalHealth = 3;
     [SerializeField] private GameObject deathEffect;
 
     [Header("Flash Settings")]
@@ -14,7 +14,7 @@ public class EnemyHealthController : MonoBehaviour
 
     protected int currentHealth;
     private Color originalColor;
-    private Vector3 spawnPosition;  // Lưu vị trí gốc để respawn
+    private Vector3 spawnPosition;
 
     protected virtual void Start()
     {
@@ -24,7 +24,7 @@ public class EnemyHealthController : MonoBehaviour
         }
 
         currentHealth = totalHealth;
-        spawnPosition = transform.position; // Lưu vị trí ban đầu
+        spawnPosition = transform.position;
     }
 
     public virtual void DamageEnemy(int damageAmount)
@@ -40,15 +40,19 @@ public class EnemyHealthController : MonoBehaviour
         {
             if (deathEffect != null)
             {
-                Instantiate(deathEffect, transform.position, transform.rotation);
+                GameObject effect = Instantiate(deathEffect, transform.position, transform.rotation);
+                Destroy(effect, 2f);
             }
 
             if (AudioManager.HasInstance)
             {
                 AudioManager.Instance.PlaySFX("explosion");
             }
-
-            Destroy(gameObject);
+            if (enemySprite != null)
+            {
+                enemySprite.color = originalColor;
+            }
+            gameObject.SetActive(false);
         }
     }
 
@@ -66,12 +70,16 @@ public class EnemyHealthController : MonoBehaviour
         }
     }
 
-    // Hàm để reset lại enemy
+
     public virtual void Respawn()
     {
         currentHealth = totalHealth;
         transform.position = spawnPosition;
         gameObject.SetActive(true);
+        if (enemySprite != null)
+        {
+            enemySprite.color = originalColor;
+        }
     }
 
     public int GetCurrentHealth() => currentHealth;

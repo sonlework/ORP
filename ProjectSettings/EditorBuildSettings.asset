@@ -5,38 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/2D Action Platformer Kit/Scenes/System Scenes/Title Screen.unity
-    guid: 0f705ed85f2f8b84b8b4e6660d3df2c8
-  - enabled: 0
-    path: Assets/2D Action Platformer Kit/Scenes/Stages/Tutorial/Tutorial Stage.unity
-    guid: 70122d8d968f68143a1e18243d9d4825
-  - enabled: 0
-    path: Assets/2D Action Platformer Kit/Scenes/System Scenes/Stage Select.unity
-    guid: c70d4503cda5df64ea3a7a7327afeff5
-  - enabled: 0
-    path: Assets/2D Action Platformer Kit/Scenes/Stages/Regular Stages/Stage 1.unity
-    guid: 0491d44612a525a4f94d34f385d8fbce
-  - enabled: 0
-    path: Assets/2D Action Platformer Kit/Scenes/Stages/Regular Stages/Stage 2.unity
-    guid: 55135a858b0034b4e987b50f7ecb4dc2
-  - enabled: 0
-    path: Assets/2D Action Platformer Kit/Scenes/Stages/Regular Stages/Stage 3.unity
-    guid: fe3a06ee513d40f4fafe7b8b6c0284a7
-  - enabled: 0
-    path: Assets/2D Action Platformer Kit/Scenes/Stages/Regular Stages/Stage 4.unity
-    guid: 8f0e124d47003b6469e897967be3e6bb
-  - enabled: 0
-    path: Assets/2D Action Platformer Kit/Scenes/Stages/Final Stages/Final Stage
-      1.unity
-    guid: f441c38cc91b0ba4f820058b1fbb63c2
-  - enabled: 0
-    path: Assets/2D Action Platformer Kit/Scenes/Stages/Final Stages/Final Stage
-      2.unity
-    guid: e309af92ed3c1934b9569ac3ff3d7e0e
-  - enabled: 0
-    path: Assets/2D Action Platformer Kit/Scenes/System Scenes/End Screen.unity
-    guid: d1686140bc05e8447953e6ff6909754e
   - enabled: 1
     path: Assets/Scenes/OmegaRebellionProject.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02

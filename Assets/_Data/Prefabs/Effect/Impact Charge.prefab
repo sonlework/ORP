@@ -160,6 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf59bf548ae96647bb82e5bed068a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 5
+  damageAmount: 3
   hitEffect: {fileID: 919196378066451362, guid: 23399f972dcba364585796d6fa0a8045, type: 3}
-  effectTime: 0.2
+  effectTime: 1.15

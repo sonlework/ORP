@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D playerRb;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
-
+    [SerializeField] private GameObject dustEffect;
     [SerializeField] private float wallSlideSpeed;
     [SerializeField] private float wallJumpPushForce;
 
@@ -292,10 +292,12 @@ public class PlayerController : MonoBehaviour
             dashCount = maxDash;
             playerRb.linearVelocity = new Vector2(playerRb.linearVelocity.x, wallSlideSpeed);
             transform.localScale = (wallDetector.cubeCastXOffset < 0) ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
+            dustEffect.SetActive(true);
         }
         else
         {
             isWallSliding = false;
+            dustEffect.SetActive(false);
         }
         // === WALL JUMP ===
         if (isWallSliding && Input.GetKeyDown(KeyCode.K))

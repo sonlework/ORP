@@ -31,10 +31,10 @@ public class BossBullet : MonoBehaviour
 
         Vector2 direction = (Vector2)target.position - rb.position;
         direction.Normalize();
-        float rotateAmount = Vector3.Cross(direction, -transform.right).z;
+        float rotateAmount = Vector3.Cross(direction, transform.up).z;
         rb.angularVelocity = -rotateAmount * rotateSpeed;
 
-        rb.linearVelocity = -transform.right * speed;
+        rb.linearVelocity = transform.up * speed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

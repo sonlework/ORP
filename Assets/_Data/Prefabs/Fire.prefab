@@ -329,4 +329,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 6
-  damagePerSecond: 5
+  damagePerSecond: 3

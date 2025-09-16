@@ -45,6 +45,10 @@ public class AudioManager : BaseManager<AudioManager>
         source.Play();
     }
 
+    public void StopBGM()
+    {
+        musicSource.Stop();
+    }
     public void StopSFX(string name)
     {
         if (!sfxSources.ContainsKey(name)) return;

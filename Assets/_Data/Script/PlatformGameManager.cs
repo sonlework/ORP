@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Cinemachine;
+using System.Security.Cryptography;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
-
 #endif
-
 public class PlatformGameManager : BaseManager<PlatformGameManager>
 {
     [SerializeField] private CinemachineCamera vcamPlayer;
@@ -16,7 +16,7 @@ public class PlatformGameManager : BaseManager<PlatformGameManager>
         base.Awake();
 
     }
-  
+
 
     private void OnEnable()
     {
@@ -46,7 +46,7 @@ public class PlatformGameManager : BaseManager<PlatformGameManager>
     {
         if (AudioManager.HasInstance)
         {
-           AudioManager.Instance.PlayBGM("Menu Theme");
+            AudioManager.Instance.PlayBGM("Menu Theme");
         }
 
         Time.timeScale = 0;
@@ -54,13 +54,14 @@ public class PlatformGameManager : BaseManager<PlatformGameManager>
 
     public void StartGame()
     {
+        RestartGame();
         if (UIManager.HasInstance)
         {
             UIManager.Instance.GamePanel.gameObject.SetActive(true);
             UIManager.Instance.MenuPanel.gameObject.SetActive(false);
         }
 
-    if (AudioManager.HasInstance)
+        if (AudioManager.HasInstance)
         {
             AudioManager.Instance.PlayBGM("City Theme");
         }
@@ -96,13 +97,13 @@ public class PlatformGameManager : BaseManager<PlatformGameManager>
     public void RestartGame()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("OmegaRebellionProject");
         if (UIManager.HasInstance)
         {
             UIManager.Instance.WinPanel.gameObject.SetActive(false);
             UIManager.Instance.LoosePanel.gameObject.SetActive(false);
             UIManager.Instance.PausePanel.gameObject.SetActive(false);
         }
+
         if (RespawnManager.HasInstance)
         {
             RespawnManager.Instance.SetDefaultPosition();
@@ -110,7 +111,7 @@ public class PlatformGameManager : BaseManager<PlatformGameManager>
         }
     }
 
-   
+
     public void ReturnMenu()
     {
         if (UIManager.HasInstance)

@@ -41,4 +41,21 @@ public class BossHealthController : EnemyHealthController
             }
         }
     }
+    public override void Respawn()
+    {
+        base.Respawn();
+        BossController boss = GetComponent<BossController>();
+        if (boss != null)
+        {
+            boss.ResetBoss();
+        }
+
+        if (UIManager.HasInstance)
+        {
+            UIManager.Instance.GamePanel.ActiveBossHealth(false);
+            UIManager.Instance.GamePanel.SetBossMaxHealth(totalHealth);
+            UIManager.Instance.GamePanel.UpdateBossHealth(0);
+
+        }
+    }
 }

@@ -5,8 +5,6 @@ using System.Collections;
 public class BossController : MonoBehaviour
 {
     [Header("Boss Settings")]
-    [SerializeField] private float dropDelay = 1.5f;
-    [SerializeField] private float dropForce = -10f;
     [SerializeField] private int maxHealth = 100;
 
     [Header("AI Settings")]
@@ -38,7 +36,10 @@ public class BossController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         healthController = GetComponent<BossHealthController>();
-        rb.bodyType = RigidbodyType2D.Static;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+  
+
+        rb.linearVelocity = Vector2.zero;
     }
 
     private void Start()
@@ -48,30 +49,29 @@ public class BossController : MonoBehaviour
 
     public void StartBossSequence()
     {
+        rb.linearVelocity = Vector2.zero;
         StartCoroutine(BossIntroRoutine());
     }
 
     private IEnumerator BossIntroRoutine()
     {
-        yield return new WaitForSeconds(dropDelay);
 
-        rb.bodyType = RigidbodyType2D.Dynamic;
-        rb.linearVelocity = new Vector2(0, dropForce);
+       
 
-        yield return new WaitUntil(() => rb.IsSleeping() || Mathf.Abs(rb.linearVelocity.y) < 0.1f);
-
+        yield return new WaitForSecondsRealtime(1.5f);
+        if (AudioManager.HasInstance) AudioManager.Instance.StopBGM();
         if (UIManager.HasInstance)
         {
             UIManager.Instance.GamePanel.ActiveBossHealth(true);
             UIManager.Instance.GamePanel.SetBossMaxHealth(maxHealth);
+
             yield return StartCoroutine(FillBossHealth(maxHealth));
         }
-
         if (healthController != null)
         {
             healthController.Init(maxHealth);
         }
-
+        if (AudioManager.HasInstance) AudioManager.Instance.PlayBGM("Boss Theme");
         isActive = true;
         StartCoroutine(AIBehaviour());
     }
@@ -81,13 +81,15 @@ public class BossController : MonoBehaviour
         int value = 0;
         while (value < maxHealthValue)
         {
-            value += 1;
+            
+            value ++;
+            
             UIManager.Instance.GamePanel.UpdateBossHealth(value);
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSecondsRealtime(0.01f);
         }
     }
 
-    // === AI ===
+
     private IEnumerator AIBehaviour()
     {
         while (isActive)
@@ -101,6 +103,7 @@ public class BossController : MonoBehaviour
                     case 1: yield return ChasingPlayer(); break;
                     case 2: yield return FireBullet(); break;
                     case 3: yield return HomingShot(); break;
+                    
                 }
                 yield return new WaitForSeconds(actionCooldown);
             }
@@ -114,7 +117,7 @@ public class BossController : MonoBehaviour
         bossAnimator.SetBool(walkParam, true);
 
         float dir = Random.value > 0.5f ? 1 : -1;
-        float duration = 2f;
+        float duration = 1f;
 
         Flip(dir);
 
@@ -127,8 +130,6 @@ public class BossController : MonoBehaviour
             yield return null;
         }
 
-        rb.linearVelocity = Vector2.zero;
-        bossAnimator.SetBool(walkParam, false);
         isPerformingAction = false;
     }
 
@@ -140,7 +141,7 @@ public class BossController : MonoBehaviour
         float dir = (player.position.x < transform.position.x) ? -1f : 1f;
         Flip(dir);
 
-        float duration = 3f;
+        float duration = 2f;
         float timer = 0f;
 
         while (timer < duration)
@@ -159,7 +160,7 @@ public class BossController : MonoBehaviour
     {
         isPerformingAction = true;
         bossAnimator.SetBool(walkParam, false);
-
+        rb.linearVelocity = Vector2.zero;
         float dir = (player.position.x < transform.position.x) ? -1f : 1f;
         GameObject bulletObj = Instantiate(fireBulletPrefab, shootPoint.position, Quaternion.identity);
        FireBuillet bullet = bulletObj.GetComponent<FireBuillet>();
@@ -175,8 +176,8 @@ public class BossController : MonoBehaviour
     private IEnumerator HomingShot()
     {
         isPerformingAction = true;
-        bossAnimator.SetBool(walkParam, false); // 👈 Idle khi bắn
-
+        bossAnimator.SetBool(walkParam, false);
+        rb.linearVelocity = Vector2.zero;
         int count = 1;
         for (int i = 0; i < count; i++)
         {
@@ -214,5 +215,12 @@ public class BossController : MonoBehaviour
         }
 
         transform.localScale = scale;
+    }
+    public void ResetBoss()
+    {
+        isActive = false;
+        isPerformingAction = false;
+        rb.linearVelocity = Vector2.zero;
+        bossAnimator.SetBool(walkParam, false);
     }
 }

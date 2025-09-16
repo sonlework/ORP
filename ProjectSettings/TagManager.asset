@@ -13,7 +13,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
   - Ground
@@ -27,8 +27,8 @@ TagManager:
   - Player Bullet
   - Player Charge Bullet
   - Enemy Bullet
-  - 
-  - 
+  - Particle Effect
+  - Player
   - 
   - 
   - 
@@ -70,14 +70,14 @@ TagManager:
   - name: Enemy
     uniqueID: 1838150779
     locked: 0
-  - name: Player
-    uniqueID: 1696615113
-    locked: 0
   - name: Pickable
     uniqueID: 3618438537
     locked: 0
   - name: Effect
     uniqueID: 3591205761
+    locked: 0
+  - name: Player
+    uniqueID: 1696615113
     locked: 0
   - name: UI
     uniqueID: 4032339013

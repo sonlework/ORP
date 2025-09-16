@@ -5,7 +5,7 @@ public class FireBuillet : MonoBehaviour
     [Header("Motion")]
     [SerializeField] private float speed;
     [SerializeField] private int dmgAmount;
-    [SerializeField] private float gravityScale;
+    
     [SerializeField] private float lifeTime;
 
     [Header("Puddle")]
@@ -16,7 +16,7 @@ public class FireBuillet : MonoBehaviour
     private Rigidbody2D rb;
     private float dir = -1f;
     private float timer;
-
+    private float gravityScale;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -25,6 +25,7 @@ public class FireBuillet : MonoBehaviour
     void OnEnable()
     {
         timer = 0f;
+        gravityScale = Random.Range(0.5f, 1f);
         if (rb != null) rb.gravityScale = gravityScale;
     }
 
